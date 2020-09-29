@@ -30,6 +30,7 @@ import { AzureApiReaderProcessor } from './processors/AzureApiReaderProcessor';
 import { BitbucketApiReaderProcessor } from './processors/BitbucketApiReaderProcessor';
 import { EntityPolicyProcessor } from './processors/EntityPolicyProcessor';
 import { FileReaderProcessor } from './processors/FileReaderProcessor';
+import { GithubOrgReaderProcessor } from './processors/GithubOrgReaderProcessor';
 import { GithubReaderProcessor } from './processors/GithubReaderProcessor';
 import { GitlabApiReaderProcessor } from './processors/GitlabApiReaderProcessor';
 import { GitlabReaderProcessor } from './processors/GitlabReaderProcessor';
@@ -85,6 +86,7 @@ export class LocationReaders implements LocationReader {
       new GitlabReaderProcessor(),
       new BitbucketApiReaderProcessor(config),
       new AzureApiReaderProcessor(config),
+      GithubOrgReaderProcessor.fromConfig(config),
       new UrlReaderProcessor(),
       new YamlProcessor(),
       PlaceholderProcessor.default(),
@@ -161,7 +163,7 @@ export class LocationReaders implements LocationReader {
     item: LocationProcessorLocationResult,
     emit: LocationProcessorEmit,
   ) {
-    this.logger.debug(
+    this.logger.info(
       `Reading location ${item.location.type} ${item.location.target} optional=${item.optional}`,
     );
 
